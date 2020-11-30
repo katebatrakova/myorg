@@ -1,0 +1,177 @@
+{
+  "version": 1,
+  "projects": {
+    "angular-tour-of-heroes": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "apps/angular-tour-of-heroes",
+      "sourceRoot": "apps/angular-tour-of-heroes/src",
+      "prefix": "myorg",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/angular-tour-of-heroes",
+            "index": "apps/angular-tour-of-heroes/src/index.html",
+            "main": "apps/angular-tour-of-heroes/src/main.ts",
+            "polyfills": "apps/angular-tour-of-heroes/src/polyfills.ts",
+            "tsConfig": "apps/angular-tour-of-heroes/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/angular-tour-of-heroes/src/favicon.ico",
+              "apps/angular-tour-of-heroes/src/assets"
+            ],
+            "styles": ["apps/angular-tour-of-heroes/src/styles.css"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/angular-tour-of-heroes/src/environments/environment.ts",
+                  "with": "apps/angular-tour-of-heroes/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "angular-tour-of-heroes:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "angular-tour-of-heroes:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "angular-tour-of-heroes:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/angular-tour-of-heroes/tsconfig.app.json",
+              "apps/angular-tour-of-heroes/tsconfig.spec.json",
+              "apps/angular-tour-of-heroes/tsconfig.editor.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/angular-tour-of-heroes/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/angular-tour-of-heroes/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "angular-tour-of-heroes-e2e": {
+      "root": "apps/angular-tour-of-heroes-e2e",
+      "sourceRoot": "apps/angular-tour-of-heroes-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/angular-tour-of-heroes-e2e/cypress.json",
+            "tsConfig": "apps/angular-tour-of-heroes-e2e/tsconfig.e2e.json",
+            "devServerTarget": "angular-tour-of-heroes:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "angular-tour-of-heroes:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/angular-tour-of-heroes-e2e/tsconfig.e2e.json"],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/angular-tour-of-heroes-e2e/**/*"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular",
+    "analytics": false
+  },
+  "schematics": {
+    "@nrwl/workspace": {
+      "library": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/cypress": {
+      "cypress-project": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/node": {
+      "application": {
+        "linter": "tslint"
+      },
+      "library": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/nest": {
+      "application": {
+        "linter": "tslint"
+      },
+      "library": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/express": {
+      "application": {
+        "linter": "tslint"
+      },
+      "library": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    }
+  },
+  "defaultProject": "angular-tour-of-heroes"
+}
