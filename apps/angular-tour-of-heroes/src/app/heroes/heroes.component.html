@@ -1,0 +1,26 @@
+<h2>My heroes</h2>
+<ul class="heroes">
+   <li class = "hero" *ngFor="let hero of heroes$ | async as heroes" >
+     <div (click)='heroSelected(hero)'><span class="badge">{{hero.id}}</span>
+   <span data-cy='heroListName'>{{hero.name}}</span>
+     </div>
+     <!-- Delete button -->
+     <button class="delete" title="delete hero" (click)="deleteHero(hero)">x</button>
+  </li>
+</ul>
+
+<div>
+  <label>Hero name:
+    <input required data-cy='newHeroName' #newHeroName type="text" [formControl]="newHeroName" placeholder="name" >
+  </label>
+
+
+  <button class="addHero" (click)="add( newHeroName.value); newHeroName.value=''">
+    add
+  </button>
+</div>
+
+
+<div *ngIf="errorMessage$ | async as errorMessage">
+  <h1>Error: {{errorMessage}}</h1>
+</div>

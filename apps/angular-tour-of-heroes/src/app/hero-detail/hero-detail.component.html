@@ -1,0 +1,21 @@
+<!-- display if the selectedHero exists with  *ngIf directive.
+  If selectedHero value is falsey -  ngIf removes the hero detail from the DOM-->
+  <ng-container *ngIf="hero$ | async as hero" >
+    <div>
+      <h2 data-cy='heroNameHeading'> {{hero.name}} details</h2>
+  <div>
+    id: <p id='heroDetailId'>{{hero.id}}</p>
+  </div>
+
+  <div>
+      <!-- With pipe operator activating the built-in Uppercase format -->
+      name: <p id='heroDetailName'>{{hero.name}}</p>
+  </div>
+  <label> name:
+     <input data-cy='heroNameFormControl' #nameInput type="text" [formControl]="heroName" placeholder="name" >
+   </label>
+  </div>
+  <!-- {{hero$ | json}} -->
+    <button (click)="saveHero(hero)">save</button>
+  <button (click)="goBack()">go back</button>
+  </ng-container>
