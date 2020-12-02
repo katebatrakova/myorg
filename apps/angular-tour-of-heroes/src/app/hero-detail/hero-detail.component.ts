@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 import { getCurrentHero } from '../heroes/state/hero.reducer';
 import { Store } from '@ngrx/store';
 import { tap } from 'rxjs/operators';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import * as HeroActions from '../heroes/state/hero.actions';
 import { State } from '../state/app.state';
 
@@ -31,7 +31,7 @@ export class HeroDetailComponent implements OnInit {
 
   ngOnInit(): void {
     // Form control for Name
-    this.heroName = new FormControl('');
+    this.heroName = new FormControl('', Validators.required);
 
     // Watch for changes to the currently selected hero
     this.hero$ = this.store
@@ -48,8 +48,8 @@ export class HeroDetailComponent implements OnInit {
 
   // navigate backward one step in the browser's history stack
   goBack(): void {
-    // this.location.back();
-    this.router.navigate(['/heroes']);
+    this.location.back();
+    // this.router.navigate(['/heroes']);
   }
 
   //  save() persists hero name changes using the hero service updateHero() method
@@ -59,11 +59,13 @@ export class HeroDetailComponent implements OnInit {
   // }
 
   saveHero(originalHero: Hero): void {
-    // Copy over all of the original hero properties
-    // This ensures values not on the form, such as the Id, are retained
-    const hero = { ...originalHero, name: this.heroName.value };
+    if (this.heroName.value) {
+      // Copy over all of the original hero properties
+      // This ensures values not on the form, such as the Id, are retained
+      const hero = { ...originalHero, name: this.heroName.value };
 
-    // update the hero  when data is returned
-    this.store.dispatch(HeroActions.updateHero({ hero }));
+      // update the hero  when data is returned
+      this.store.dispatch(HeroActions.updateHero({ hero }));
+    }
   }
 }

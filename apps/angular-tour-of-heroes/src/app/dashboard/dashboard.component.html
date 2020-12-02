@@ -3,23 +3,23 @@
   <!-- *ngFor repeater creates as many links as are in the component's heroes array -->
   <!-- interpolation binding to insert the current iteration's hero.id into each routerLink -->
   <ng-container *ngIf=" heroes$ | async as heroes" class="col-1-4">
-    <ul>
-<li class= "hero"
-*ngFor="let hero of heroes | slice:1:5"
-(click)='heroSelected(hero)' >
-  <div>
-    <div class="module hero">
-      <h4>{{hero.name}}</h4>
-    </div>
-  </div>
-</li>
+<ul>
+  <li class= "hero"
+  *ngFor="let hero of heroes | slice:1:5"
+  (click)='heroSelected(hero)' >
+    <!-- <div> -->
+      <div class="module hero">
+        <h4>{{hero.name}}</h4>
+      </div>
+    <!-- </div> -->
+  </li>
 </ul>
   </ng-container>
 </div>
 
 
 
-<myorg-hero-search *ngIf="!errorMessage$"></myorg-hero-search>
+<myorg-hero-search></myorg-hero-search>
 
 <div *ngIf="errorMessage$ | async as errorMessage">
   <h1>Error: {{errorMessage}}</h1>

@@ -12,7 +12,7 @@
       name: <p id='heroDetailName'>{{hero.name}}</p>
   </div>
   <label> name:
-     <input data-cy='heroNameFormControl' #nameInput type="text" [formControl]="heroName" placeholder="name" >
+     <input required data-cy='heroNameFormControl' #nameInput type="text" [formControl]="heroName" placeholder="name" >
    </label>
   </div>
   <!-- {{hero$ | json}} -->
